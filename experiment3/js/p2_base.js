@@ -8,7 +8,7 @@ let currentGrid = [];
 let owGrid = [];
 let dungeonGrid = [];
 let numRows, numCols;
-let overworld = true;
+let overworld = false;
 
 function preload() {
   tilesetImage = loadImage(

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment X - Subject/Topic</title>
+	<title>Experiment 3 - Dungeon/Overworld</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -36,7 +36,7 @@
 	<main id="content">
 		<section>
 
-			<h1>Experiment X - Subject/Topic</h1>
+			<h1>Experiment 3 - Dungeon/Overworld</h1>
 
 			<div class="minor-section">
 				<button id="reseedButton">
@@ -53,17 +53,17 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
+				<p>In this experiment I created 2 different level generators. One is a dungeon level that generates rooms that connect with pillars, chests, and doors. The program also spawns a red square to represent the player. It will follow the mouse and if you walk through a door it will generate a new level. If you press the Switch! button at the top of the screen it will go to a overworld that uses the same seed. Here the generator will create rivers and forests to create a unique level. It will also spawn a few "Bunnies" that will run around the screen at random. If you move your mouse towards the bunnies they will get scared and run away from the mouse.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
+				<p>For the dungeon area I set up a system that will automatically choose what walls to place down based on its surrounding tiles. I also used this for the placement of pillars around the map, if the generator only spawned in one pillar tile it will spawn in a chest instead. I also attempt to randomly spawn in atleast one door per level on a tile on the north of the level. In the overworld I have a similar system of picking blocks based on the surrounding tiles, but I did it for the river. It's a similar system except instead of a single tile code for each combination of possibilities, I stack the textures on top of each other. I was able to create a unique lake effect using this technique, it might not look the most amazing but I like the style of the lake with ice chunks in it during the heavy snow. For the interactions I have simple classes that move based on mouse input and I use a collision libary made for P5.js to handle all the collision detection for both the bunny objects and the player object.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>I'm happy with the ways the levels turned out. If I was more artistically inclined I believe I could've made the levels look better visually, but they look acceptable now and I believe it has it's own kind of style. I'm happier with the way the dungeon levels look and play more than the overworld, but it's also fun to push the bunnies around the map. I used a lot of AI to help me code this assignment, especially with the collision detection stuff. I tried to code everything by hand originally but AI was able to do all the tedious number stuff instantly for me so I decided to use it on this project for efficency. In the future I would like to have a bigger canvas so I can create more complex dungeon levels, there arent many constrictions on the placement for the rooms in the dungeon so they tend to stack on top of each other creating uniquly shaped rooms but the levels are small.</p>
 			</div>
 
 		</section>
