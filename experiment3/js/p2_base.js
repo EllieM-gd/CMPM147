@@ -5,7 +5,10 @@
 let seed = 0;
 let tilesetImage;
 let currentGrid = [];
+let owGrid = [];
+let dungeonGrid = [];
 let numRows, numCols;
+let overworld = true;
 
 function preload() {
   tilesetImage = loadImage(
@@ -15,6 +18,8 @@ function preload() {
 
 function reseed() {
   seed = (seed | 0) + 1109;
+  owGrid = [];
+  dungeonGrid = [];
   randomSeed(seed);
   noiseSeed(seed);
   select("#seedReport").html("seed " + seed);
@@ -22,12 +27,33 @@ function reseed() {
 }
 
 function regenerateGrid() {
-  select("#asciiBox").value(gridToString(generateGrid(numCols, numRows)));
+  if (overworld) {
+    if (owGrid.length === 0) owGrid = generateOverworldGrid(numCols, numRows);
+      currentGrid = owGrid;
+  } else {
+  if (dungeonGrid.length === 0) dungeonGrid = generateDungeonGrid(numCols, numRows);
+    currentGrid = dungeonGrid;
+  }
+    
+  if (currentGrid) {
+    if (overworld) {
+      owGrid = stringToGrid(select("#asciiBox").value());
+    } else {
+      dungeonGrid = stringToGrid(select("#asciiBox").value());
+    }
+  }
+
+  select("#asciiBox").value(gridToString(currentGrid));
   reparseGrid();
 }
 
 function reparseGrid() {
-  currentGrid = stringToGrid(select("#asciiBox").value());
+    currentGrid = stringToGrid(select("#asciiBox").value());
+    if (overworld) {
+      owGrid = currentGrid;
+    } else {
+      dungeonGrid = currentGrid;
+    }
 }
 
 function gridToString(grid) {
@@ -60,6 +86,7 @@ function setup() {
   select("canvas").elt.getContext("2d").imageSmoothingEnabled = false;
 
   select("#reseedButton").mousePressed(reseed);
+  select('#switchButton').mousePressed(toggleOverworld);
   select("#asciiBox").input(reparseGrid);
   rectMode(CORNER);
 
@@ -70,7 +97,13 @@ function setup() {
 
 function draw() {
   randomSeed(seed);
-  drawGrid(currentGrid);
+  if (!overworld) drawDungeonGrid(currentGrid);
+  else drawOverworldGrid(currentGrid);
+}
+
+function toggleOverworld() {
+  overworld = !overworld;
+  regenerateGrid();
 }
 
 function placeTile(i, j, ti, tj) {

@@ -53,7 +53,7 @@ class Player {
 
 let player;
 
-function generateGrid(numCols, numRows) {
+function generateDungeonGrid(numCols, numRows) {
   doors = [];
   let grid = [];
   let rooms = [];
@@ -184,7 +184,7 @@ function generatePillar(grid,room){
 }
 
 
-function drawGrid(grid) {
+function drawDungeonGrid(grid) {
   background(128);
 
   for(let i = 0; i < grid.length; i++) {
