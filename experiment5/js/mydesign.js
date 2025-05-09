@@ -57,8 +57,6 @@ function initDesign(inspiration) {
   for(let y = 0; y < canvasHeight; y += 10) {
     for(let x = 0; x < tempCanvasWidth; x += 10) {
       let color = inspiration.image.get(x, y);
-      let color2 = inspiration.image.get(x + random(width/15, width/10), y);
-      let color3 = inspiration.image.get(x - random(width/15, width/10), y);
 
       let type = random(types);
 
@@ -75,27 +73,6 @@ function initDesign(inspiration) {
     }
   }
 
-  
-  // for(let i = 0; i < 1000; i++) {
-  //   let saveX = random(width);
-  //   let saveY = random(height);
-  //   //We could check the colors at different points and if they are vastly different we could use a smaller triangle
-  //   let color = inspiration.image.get(saveX, saveY);
-  //   let color2 = inspiration.image.get(saveX + random(width/15, width/10), saveY);
-  //   let color3 = inspiration.image.get(saveX - random(width/15, width/10), saveY);
-  //   let type = "";
-
-  //   type = random(types);
-
-  //   design.fg.push({x: saveX,
-  //                   y: saveY,
-  //                   w: random(width/8),
-  //                   h: random(height/6),
-  //                   type: type,
-  //                   fillR: inspiration.image.get(saveX, saveY)[0] + random(-10, 10),
-  //                   fillG: inspiration.image.get(saveX, saveY)[1] + random(-10, 10),
-  //                   fillB: inspiration.image.get(saveX, saveY)[2] + random(-10, 10)});
-  // }
   return design;
 }
 
