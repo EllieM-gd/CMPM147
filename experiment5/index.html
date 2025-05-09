@@ -79,15 +79,14 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>In this programming assignment, we're building a generator that directly reads inspiring images, renders parameterized images, and adjusts its own designs to optimize an evaluation score.</p>
+				<p>In this programming assignment, we're building a generator that directly reads inspiring images, renders parameterized images, and adjusts its own designs to optimize an evaluation score. This one specifically scans the image from left to right and creates one of the 3 shapes to place in that position, it also picks a color based on its position. It creates an interesting blurry/abstract effect on the images.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
                 <ol>
-                    <li>This project integrates inspiring images that are selectable from the drop-down on the display page. (This could be three distinct images or one image with three different sets of clues that cause the generator to interpret it in a different way.)</li>
+                    <li>This project integrates inspiring images that are selectable from the drop-down on the display page. </li>
                     <li>The design object is initialized in inspiration-specific ways. Selecting different inspirations should lead to different behaviors of initDesign.</li>
-                    <li>The design is rendered in a way that can possibly produce results that feel related to the inspiring images. (The 30-second annealing trick should produce images that resemble the inspiring image if we squint.)</li>
                     <li>The mutation process makes incremental changes to your design. The rate parameter should be implemented in a way that allows the user to almost stop exploration by sliding the rate down to 1%. Your generator must respond to the mutation rate slider.</li>
                 </ol>
 			</div>
@@ -100,7 +99,7 @@
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>I was a little embrarrassed that I didn't have this wired by the time the assignment came up. But uh, being human.</p>
+				<p>I decided to focus mainly on color with this experiment as I thought it would give the best results. I attempted to select the shape based on how similar the colors around the center point was, but ended up finding that picking a random shape works just as well. I wish I was able to make the pictures slightly less blurry or to get the whole pictures to display on some of the larger image files, but for these 2 goals I have been making very little progress in the past few hours.</p>
 			</div>
 
 		</section>

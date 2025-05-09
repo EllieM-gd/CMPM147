@@ -32,8 +32,15 @@ function initDesign(inspiration) {
   let canvasContainer = $('.image-container'); // Select the container using jQuery
   let canvasWidth = canvasContainer.width(); // Get the width of the container
   let aspectRatio = inspiration.image.height / inspiration.image.width;
-  let canvasHeight = canvasWidth * aspectRatio; // Calculate the height based on the aspect ratio
-  resizeCanvas(canvasWidth, canvasHeight);
+  let tempCanvasWidth = inspiration.image.width
+  //clamp the tempCanvasWidth to 1000 pixels
+  if (tempCanvasWidth > 600) {
+    tempCanvasWidth = 600;
+  }
+  let canvasHeight = tempCanvasWidth * aspectRatio; // Calculate the height based on the aspect ratio
+  console.log(canvasWidth, canvasHeight);
+  console.log(tempCanvasWidth, inspiration.image.height);
+  resizeCanvas(tempCanvasWidth, canvasHeight);
   $(".caption").text(inspiration.credit); // Set the caption text
 
   // add the original image to #original
@@ -47,23 +54,14 @@ function initDesign(inspiration) {
     fg: []
   }
 
-  for(let x = 0; x < width; x += 10) {
-    for(let y = 0; y < height; y += 15) {
+  for(let y = 0; y < canvasHeight; y += 10) {
+    for(let x = 0; x < tempCanvasWidth; x += 10) {
       let color = inspiration.image.get(x, y);
       let color2 = inspiration.image.get(x + random(width/15, width/10), y);
       let color3 = inspiration.image.get(x - random(width/15, width/10), y);
-      let color4 = inspiration.image.get(x, y + random(height/15, height/10));
-      let color5 = inspiration.image.get(x, y - random(height/15, height/10));
-      let type = "";
-      if (areColorsSimilar(color, color2, color3, 10)) {
-        type = types[0];
-      }
-      else if (areColorsSimilar(color, color2, color3, 20)) {
-        type = types[1];
-      }
-      else {
-        type = types[2];
-      }
+
+      let type = random(types);
+
       design.fg.push({
         x: x,
         y: y,
@@ -87,15 +85,7 @@ function initDesign(inspiration) {
   //   let color3 = inspiration.image.get(saveX - random(width/15, width/10), saveY);
   //   let type = "";
 
-  //   if (areColorsSimilar(color, color2, color3, 10)) {
-  //     type = types[0];
-  //   }
-  //   else if (areColorsSimilar(color, color2, color3, 20)) {
-  //     type = types[1];
-  //   }
-  //   else {
-  //     type = types[2];
-  //   }
+  //   type = random(types);
 
   //   design.fg.push({x: saveX,
   //                   y: saveY,
@@ -126,11 +116,12 @@ function mutateDesign(design, inspiration, rate) {
   for(let box of design.fg) {
     box.x = mut(box.x, box.x-25, box.x+25, rate);
     box.y = mut(box.y, box.y-25, box.y+25, rate);
-    box.w = mut(box.w, box.w - 50, box.w + 50, rate);
+    box.w = mut(box.w, box.w - 70, box.w + 50, rate);
     box.h = mut(box.h, box.h - 50, box.h + 50, rate);
-    box.fillR = inspiration.image.get(box.x, box.y)[0] + random(-10, 10),
-    box.fillG = inspiration.image.get(box.x, box.y)[1] + random(-10, 10),
-    box.fillB = inspiration.image.get(box.x, box.y)[2] + random(-10, 10);
+    let color = inspiration.image.get(box.x, box.y);
+    box.fillR = color[0] + random(-10, 10),
+    box.fillG = color[1] + random(-10, 10),
+    box.fillB = color[2] + random(-10, 10);
     box.type = random(types);
   }
 }
@@ -138,22 +129,4 @@ function mutateDesign(design, inspiration, rate) {
 
 function mut(num, min, max, rate) {
     return constrain(randomGaussian(num, (rate * (max - min)) / 10), min, max);
-}
-
-
-//Generated with ChatGPT
-//Used to compare if two colors are similar
-function areColorsSimilar(c1, c2, c3, threshold) {
-  // Each c is an array: [r, g, b, a]
-  function colorDistance(a, b) {
-    return dist(a[0], a[1], a[2], b[0], b[1], b[2]);
-  }
-
-  let d1 = colorDistance(c1, c2);
-  let d2 = colorDistance(c1, c3);
-  let d3 = colorDistance(c2, c3);
-
-  // Average or max distance check (can adjust logic)
-  let averageDistance = (d1 + d2 + d3) / 3;
-  return averageDistance < threshold;
 }
